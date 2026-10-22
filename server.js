@@ -1,7 +1,12 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const nodemailer = require('./node_modules/nodemailer');
+let nodemailer;
+try {
+  nodemailer = require('nodemailer');
+} catch (e) {
+  nodemailer = require('./node_modules/nodemailer');
+}
 
 // Load environment variables from .env file if available
 const ENV_PATH = path.join(__dirname, '.env');

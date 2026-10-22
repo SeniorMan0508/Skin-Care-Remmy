@@ -64,7 +64,6 @@ async function sendOrderNotificationEmail(orderData) {
       formData.append("_subject", `🛍️ New Order: ${orderData.name || 'Customer'} (${orderData.orderRef}) - Remi Luxe Beauty`);
       formData.append("_template", "box");
       formData.append("Brand", STORE_CONFIG.brandName);
-      formData.append("Official Brand Logo", STORE_CONFIG.logoUrl);
       formData.append("Order Reference", orderData.orderRef);
       formData.append("Customer Full Name", orderData.name || "Customer");
       formData.append("Phone / WhatsApp", orderData.phone || "Not provided");
@@ -72,11 +71,22 @@ async function sendOrderNotificationEmail(orderData) {
       formData.append("Delivery Destination", `${orderData.address || ''}, ${orderData.state || 'Lagos'} State, Nigeria`);
       formData.append("Special Instructions", orderData.notes || "None");
       formData.append("Formulations Ordered", itemsList);
-      formData.append("Subtotal", formatNaira(orderData.subtotal || 0));
-      formData.append("Delivery Fee", orderData.deliveryFee ? formatNaira(orderData.deliveryFee) : "FREE");
-      formData.append("Total Order Value", formatNaira(orderData.total || 0));
-      formData.append("Payment Method", orderData.paymentMethod || "Direct Bank Transfer");
-      formData.append("Fulfillment Status", "Pending Payment Verification (Check UBA Bank Alert)");
+      formData.append("Subtotal (Formulations)", formatNaira(orderData.subtotal || 0));
+      formData.append("Delivery Fee", typeof orderData.deliveryFee === 'string' ? orderData.deliveryFee : "Paid on Delivery (By Receiver)");
+      formData.append("Total Amount Due (Products)", formatNaira(orderData.total || 0));
+      formData.append("Payment Method", orderData.paymentMethod || "Direct Bank Transfer (Opay: 9013255068)");
+      formData.append("Fulfillment Status", "Pending Payment Verification (Check Opay Alert)");
+
+      // Attach actual Brand Logo image file to the email
+      try {
+        const logoFetch = await fetch(STORE_CONFIG.logoUrl);
+        if (logoFetch.ok) {
+          const logoBlob = await logoFetch.blob();
+          formData.append("attachment", logoBlob, "remi-luxe-beauty-logo.jpg");
+        }
+      } catch (imgErr) {
+        formData.append("Official Brand Logo", STORE_CONFIG.logoUrl);
+      }
 
       await fetch(`https://formsubmit.co/ajax/${STORE_CONFIG.businessEmail}`, {
         method: "POST",
