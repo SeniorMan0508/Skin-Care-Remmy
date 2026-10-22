@@ -27,6 +27,7 @@ if (fs.existsSync(ENV_PATH)) {
 
 const PORT = parseInt(process.env.PORT, 10) || 5050;
 const DEFAULT_ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'remigold049@gmail.com';
+const PUBLIC_LOGO_URL = 'https://cdn.jsdelivr.net/gh/SeniorMan0508/Skin-Care-Remmy@main/images/logo-image.jpeg';
 
 const MIME_TYPES = {
   '.html': 'text/html',
@@ -83,7 +84,7 @@ function generateOrderHtml(orderData, hasLogo) {
     <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
       <!-- Brand Header with Circular Logo Image & Gold Border -->
       <div style="background: linear-gradient(135deg, #102e20 0%, #18422e 100%); padding: 26px 20px; text-align: center; color: #ffffff;">
-        ${hasLogo ? `<img src="cid:storeLogo" alt="Remi Luxe Beauty Logo" style="width: 82px; height: 82px; border-radius: 50%; object-fit: cover; border: 3px solid #d4af37; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: block; margin: 0 auto 10px;">` : ''}
+        <img src="${PUBLIC_LOGO_URL}" alt="Remi Luxe Beauty Logo" width="82" height="82" style="width: 82px; height: 82px; border-radius: 50%; object-fit: cover; border: 3px solid #d4af37; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: block; margin: 0 auto 10px;">
         <h1 style="margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 0.02em; color: #ffffff;">Remi Luxe Beauty</h1>
         <p style="margin: 4px 0 0 0; font-size: 13px; color: #cbd5e1;">Official Store Order Notification</p>
       </div>
@@ -228,7 +229,7 @@ function generateCustomerConfirmationHtml(orderData, status, hasLogo) {
     <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
       <!-- Brand Header with Logo & Gold Accent -->
       <div style="background: linear-gradient(135deg, #102e20 0%, #18422e 100%); padding: 28px 20px; text-align: center; color: #ffffff;">
-        ${hasLogo ? `<img src="cid:storeLogo" alt="Remi Luxe Beauty Logo" style="width: 82px; height: 82px; border-radius: 50%; object-fit: cover; border: 3px solid #d4af37; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: block; margin: 0 auto 10px;">` : ''}
+        <img src="${PUBLIC_LOGO_URL}" alt="Remi Luxe Beauty Logo" width="82" height="82" style="width: 82px; height: 82px; border-radius: 50%; object-fit: cover; border: 3px solid #d4af37; box-shadow: 0 4px 12px rgba(0,0,0,0.25); display: block; margin: 0 auto 10px;">
         <h1 style="margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 0.02em; color: #ffffff;">Remi Luxe Beauty</h1>
         <p style="margin: 4px 0 0 0; font-size: 13px; color: #cbd5e1;">Official Customer Order Update</p>
       </div>

@@ -8,7 +8,7 @@ export const STORE_CONFIG = {
   businessEmail: "remigold049@gmail.com", // <-- EDIT THIS EMAIL ANYTIME TO CHANGE OWNER EMAIL
   businessPhone: "+2349013255068",        // <-- WhatsApp Concierge Phone
   brandName: "Remi Luxe Beauty",
-  logoUrl: "https://iili.io/nO1RNea.jpg"      // Direct web-accessible Brand Logo for email notifications
+  logoUrl: "https://cdn.jsdelivr.net/gh/SeniorMan0508/Skin-Care-Remmy@main/images/logo-image.jpeg" // High-availability global CDN Logo for email & mobile display
 };
 
 export const NAIRA_SYMBOL = "₦";
@@ -329,8 +329,12 @@ export function StoreProvider({ children }) {
       // 1. Direct Node server rich email with embedded brand logo
       try {
         let endpoint = "/api/send-order-email";
-        if (typeof window !== "undefined" && (window.location.protocol === "file:" || (window.location.port && window.location.port !== "5050"))) {
-          endpoint = "http://localhost:5050/api/send-order-email";
+        if (typeof window !== "undefined") {
+          if (window.location.protocol === "file:") {
+            endpoint = "http://localhost:5050/api/send-order-email";
+          } else if ((window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "5050") {
+            endpoint = "http://localhost:5050/api/send-order-email";
+          }
         }
         await fetch(endpoint, {
           method: "POST",

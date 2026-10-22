@@ -6,7 +6,7 @@ const STORE_CONFIG = {
   businessEmail: "remigold049@gmail.com", // <-- EDIT THIS EMAIL ANYTIME TO CHANGE OWNER EMAIL
   businessPhone: "+2349013255068",        // <-- WhatsApp Concierge Phone
   brandName: "Remi Luxe Beauty", 
-  logoUrl: "https://iili.io/nO1RNea.jpg"   // Direct Cloudflare CDN Brand Logo for emails & external display
+  logoUrl: "https://cdn.jsdelivr.net/gh/SeniorMan0508/Skin-Care-Remmy@main/images/logo-image.jpeg" // High-availability global CDN Logo for email & mobile display
 };
 
 const NAIRA_SYMBOL = "₦";
@@ -31,13 +31,15 @@ async function sendOrderNotificationEmail(orderData) {
   try {
     let endpoint = "/api/send-order-email";
     if (typeof window !== "undefined") {
-      if (window.location.protocol === "file:" || (window.location.port && window.location.port !== "5050")) {
+      if (window.location.protocol === "file:") {
+        endpoint = "http://localhost:5050/api/send-order-email";
+      } else if ((window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "5050") {
         endpoint = "http://localhost:5050/api/send-order-email";
       }
     }
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     const res = await fetch(endpoint, {
       method: "POST",
@@ -116,13 +118,15 @@ async function sendCustomerStatusEmail(orderData, status = "Payment Confirmed") 
   try {
     let endpoint = "/api/send-customer-status-email";
     if (typeof window !== "undefined") {
-      if (window.location.protocol === "file:" || (window.location.port && window.location.port !== "5050")) {
+      if (window.location.protocol === "file:") {
+        endpoint = "http://localhost:5050/api/send-customer-status-email";
+      } else if ((window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") && window.location.port !== "5050") {
         endpoint = "http://localhost:5050/api/send-customer-status-email";
       }
     }
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
 
     const res = await fetch(endpoint, {
       method: "POST",
