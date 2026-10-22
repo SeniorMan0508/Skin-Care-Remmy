@@ -133,7 +133,7 @@ function renderCatalog() {
         <div class="product-img-wrapper" onclick="openQuickView('${product.id}')" title="Click to view details">
           ${product.isNew ? `<span class="badge-new">New Drop</span>` : ''}
           ${isOutOfStock ? `<span class="badge-outofstock">Sold Out</span>` : ''}
-          <img src="${product.image}" alt="${escapeHtml(product.title)}" loading="lazy">
+          <img src="${product.image}" alt="${escapeHtml(product.title)}" loading="lazy" decoding="async">
           
           <div class="product-quick-actions">
             <button class="btn-quick-view" onclick="event.stopPropagation(); openQuickView('${product.id}')">

@@ -52,7 +52,7 @@ function renderNewArrivals() {
       <article class="product-card" data-id="${product.id}">
         <div class="product-img-wrapper">
           <span class="badge-new">New Release</span>
-          <img src="${product.image}" alt="${escapeHtml(product.title)}" loading="lazy">
+          <img src="${product.image}" alt="${escapeHtml(product.title)}" loading="lazy" decoding="async">
           
           <div class="product-quick-actions">
             <button class="btn-quick-view" onclick="openQuickView('${product.id}')">

@@ -651,8 +651,18 @@ const server = http.createServer((req, res) => {
         res.end(`Server Error: ${err.code}`);
       }
     } else {
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(content, 'utf-8');
+      const headers = { 'Content-Type': contentType };
+      if (['.jpg', '.jpeg', '.png', '.svg', '.webp'].includes(ext)) {
+        // High-performance image caching: 30 days immutable browser cache
+        headers['Cache-Control'] = 'public, max-age=2592000, immutable';
+      } else if (['.css', '.js'].includes(ext)) {
+        // Assets caching: 1 day with stale-while-revalidate
+        headers['Cache-Control'] = 'public, max-age=86400, stale-while-revalidate=604800';
+      } else if (ext === '.html') {
+        headers['Cache-Control'] = 'no-cache';
+      }
+      res.writeHead(200, headers);
+      res.end(content);
     }
   });
 });
