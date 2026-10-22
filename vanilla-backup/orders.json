@@ -1,0 +1,32 @@
+[
+  {
+    "orderRef": "RLB-TEST-8291",
+    "name": "Amara Nwachukwu",
+    "phone": "08031234567",
+    "email": "amara.test@gmail.com",
+    "address": "Plot 12, Admiralty Way, Lekki Phase 1",
+    "state": "Lagos",
+    "notes": "Please call on arrival",
+    "items": [
+      {
+        "id": "remi-001",
+        "title": "Radiance Glow Serum",
+        "price": 45000,
+        "quantity": 1
+      },
+      {
+        "id": "remi-002",
+        "title": "Velvet Barrier Cream",
+        "price": 38000,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 83000,
+    "deliveryFee": 0,
+    "total": 83000,
+    "paymentMethod": "Direct Bank Transfer (UBA Bank: 2155821394)",
+    "brandLogo": "https://x0.at/fHip.jpeg",
+    "itemsFormatted": "• Radiance Glow Serum (Qty: 1) - ₦45000\n• Velvet Barrier Cream (Qty: 1) - ₦38000",
+    "receivedAt": "2026-10-21T20:10:04.780Z"
+  }
+]

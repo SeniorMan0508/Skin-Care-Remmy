@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Product Upload Portal | Remi Luxe Beauty</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- ===================================================================
+         1. PASSWORD ENCRYPTION & AUTHENTICATION GATEWAY
+         =================================================================== -->
+    <div class="admin-auth-overlay" id="admin-auth-overlay">
+        
+        <!-- View A: Login Card -->
+        <div class="admin-auth-card" id="auth-login-card">
+            <div class="auth-logo">
+                <img src="./images/logo-image.jpeg" alt="Remi Luxe Logo">
+            </div>
+            <h2>Remi Luxe Beauty</h2>
+            <p class="auth-subtitle">Encrypted Admin Formulation Portal</p>
+
+            <div class="auth-error-notice" id="login-error-msg">Incorrect password. Please try again.</div>
+
+            <form id="admin-login-form">
+                <div class="auth-form-group">
+                    <label for="admin-pass-input">Admin Master Password</label>
+                    <input type="password" id="admin-pass-input" placeholder="Enter password (default: remi2026)" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn-auth-submit">Unlock Admin Dashboard</button>
+
+                <div class="auth-links-row">
+                    <button type="button" class="auth-link" id="link-forgot-pass">Forgot Password?</button>
+                    <a href="index.html" style="color:var(--color-text-muted);">← Return to Store</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- View B: Forgot / Reset Password Card -->
+        <div class="admin-auth-card" id="auth-reset-card" style="display: none;">
+            <div class="auth-logo">
+                <img src="./images/logo-image.jpeg" alt="Remi Luxe Logo">
+            </div>
+            <h2>Reset Admin Password</h2>
+            <p class="auth-subtitle">Verify your identity to set a new password</p>
+
+            <div class="auth-error-notice" id="reset-error-msg"></div>
+            <div class="auth-success-notice" id="reset-success-msg"></div>
+
+            <form id="admin-reset-form">
+                <div class="auth-form-group">
+                    <label for="reset-admin-email">Registered Admin Business Email *</label>
+                    <input type="email" id="reset-admin-email" placeholder="e.g. remigold049@gmail.com" required>
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="reset-question-answer">Founder Name OR Master PIN (Default: 8899)</label>
+                    <input type="text" id="reset-question-answer" placeholder="e.g. Remi or 8899" value="Remi">
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="reset-new-pass">New Password *</label>
+                    <input type="password" id="reset-new-pass" placeholder="Enter new strong password" required minlength="4">
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="reset-confirm-pass">Confirm New Password *</label>
+                    <input type="password" id="reset-confirm-pass" placeholder="Confirm new password" required minlength="4">
+                </div>
+
+                <button type="submit" class="btn-auth-submit">Reset & Encrypt Password</button>
+
+                <div class="auth-links-row" style="justify-content: center; margin-top: 16px;">
+                    <button type="button" class="auth-link" id="link-back-to-login">← Back to Login</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- ===================================================================
+         2. MAIN ADMIN DASHBOARD
+         =================================================================== -->
+    <header class="admin-navbar">
+        <div class="container admin-nav-content">
+            <div class="admin-brand">
+                <img src="./images/logo-image.jpeg" alt="Logo">
+                <div>
+                    <h1>REMI LUXE BEAUTY</h1>
+                    <span>Admin Formulation & Inventory Portal</span>
+                </div>
+            </div>
+
+            <div class="admin-nav-actions">
+                <button class="btn-nav-action" id="btn-open-settings" title="Change Admin Password">
+                    <span>🔑 Change Password</span>
+                </button>
+                <a href="index.html" class="btn-nav-action">
+                    <span>← View Live Store</span>
+                </a>
+                <button class="btn-nav-action btn-nav-logout" id="btn-admin-logout" title="Log out of Admin Portal">
+                    <span>🚪 Log Out</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Dashboard Metrics Strip -->
+        <section class="dashboard-stats-grid">
+            <div class="stat-card">
+                <span class="label">Total Formulations</span>
+                <h3 id="stat-total-products">0</h3>
+            </div>
+            <div class="stat-card">
+                <span class="label">Active In Stock</span>
+                <h3 id="stat-in-stock" style="color: #2E7D32;">0</h3>
+            </div>
+            <div class="stat-card">
+                <span class="label">Sold Out / Reserved</span>
+                <h3 id="stat-out-stock" style="color: #C62828;">0</h3>
+            </div>
+            <div class="stat-card">
+                <span class="label">Average Retail Price</span>
+                <h3 id="stat-avg-price">₦0</h3>
+            </div>
+        </section>
+
+        <!-- Main Layout: Upload Form (Left) & Existing Products (Right) -->
+        <section class="admin-layout-grid">
+            
+            <!-- Left: Product Upload Form -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2>Upload New Formulation</h2>
+                    <p>Added products will instantly appear on the <strong>Shop catalog</strong> and the <strong>Home page New Arrivals</strong> section.</p>
+                </div>
+
+                <div id="upload-success-message" style="display:none; background:#E8F5E9; border:1px solid #2E7D32; color:#1B5E20; padding:16px; border-radius:10px; margin-bottom:20px; font-weight:600;">
+                    🎉 Formulation successfully uploaded! It is now live in the store catalog and featured under New Arrivals.
+                </div>
+
+                <form id="product-upload-form">
+                    <div class="form-group">
+                        <label for="prod-title">Formulation Title *</label>
+                        <input type="text" id="prod-title" placeholder="e.g. Luminous Vitamin C Nectar" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prod-category">Skincare Category *</label>
+                            <select id="prod-category" required>
+                                <option value="Serums">Serums & Elixirs</option>
+                                <option value="Moisturizers">Barrier Moisturizers & Creams</option>
+                                <option value="Cleansers">Gentle Cleansers & Washes</option>
+                                <option value="Oils">Radiance & Botanical Oils</option>
+                                <option value="Sunscreen">Sun Protection (SPF)</option>
+                                <option value="Toners & Mists">Toners & Facial Mists</option>
+                                <option value="Masks">Restorative Masks</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prod-volume">Volume / Size *</label>
+                            <input type="text" id="prod-volume" placeholder="e.g. 50ml / 1.7 fl. oz." value="50ml">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prod-price">Retail Price in Naira (₦) *</label>
+                            <input type="number" id="prod-price" placeholder="e.g. 45000" min="500" step="500" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prod-original-price">Original / Strike-through Price (₦)</label>
+                            <input type="number" id="prod-original-price" placeholder="e.g. 52000 (Optional)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prod-skin-type">Target Skin Types / Concerns</label>
+                        <input type="text" id="prod-skin-type" placeholder="e.g. Dry, Melanin-Rich, Dull / Uneven Complexion">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prod-description">Formulation Description & Key Actives *</label>
+                        <textarea id="prod-description" rows="4" placeholder="Detail the bio-active ingredients, benefits, and how to apply for optimal glow..." required></textarea>
+                    </div>
+
+                    <!-- Image Selection -->
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <div class="image-upload-box">
+                            <div class="image-preview-container">
+                                <img id="admin-preview-img" src="./images/product-serum.jpg" alt="Preview">
+                            </div>
+
+                            <p style="font-size:0.85rem; color:var(--color-text-muted); margin-bottom:10px;">Upload a custom photo or choose a luxury preset:</p>
+                            
+                            <input type="file" id="admin-image-file" accept="image/*" style="margin-bottom:12px; background:#FFF; border:1px solid #CCC; padding:8px;">
+
+                            <input type="url" id="admin-image-url" placeholder="Or paste external image URL..." style="margin-bottom:10px;">
+
+                            <div class="preset-selector">
+                                <span class="preset-chip active" data-src="./images/product-serum.jpg">Serum Dropper</span>
+                                <span class="preset-chip" data-src="./images/product-cream.jpg">Velvet Cream</span>
+                                <span class="preset-chip" data-src="./images/product-cleanser.jpg">Pump Cleanser</span>
+                                <span class="preset-chip" data-src="./images/product-oil.jpg">24K Gold Oil</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="prod-is-new" checked>
+                            <label for="prod-is-new">Mark as "New Drop" (shows on Home page)</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="prod-in-stock" checked>
+                            <label for="prod-in-stock">Available in Stock</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-publish-product">
+                        ✨ Publish Formulation to Store
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: Product Inventory Table -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2>Live Catalog & Inventory</h2>
+                    <p>Edit prices, update descriptions, toggle stock availability, or delete discontinued items.</p>
+                </div>
+
+                <div class="products-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-table-body">
+                            <!-- Populated by admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- ===================================================================
+         3. EDIT PRODUCT MODAL (PRICE INCREASE / DECREASE / DETAILS)
+         =================================================================== -->
+    <div class="admin-modal-backdrop" id="edit-product-modal">
+        <div class="admin-modal-dialog">
+            <button class="btn-close-modal" id="close-edit-modal-btn">✕</button>
+            <div class="admin-card-header" style="margin-bottom: 20px;">
+                <h2>Edit Formulation Details</h2>
+                <p>Modify pricing (increase or decrease), volume, description, or image for this product.</p>
+            </div>
+
+            <form id="edit-product-form">
+                <input type="hidden" id="edit-prod-id">
+
+                <div class="form-group">
+                    <label for="edit-prod-title">Formulation Title *</label>
+                    <input type="text" id="edit-prod-title" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-prod-category">Skincare Category *</label>
+                        <select id="edit-prod-category" required>
+                            <option value="Serums">Serums & Elixirs</option>
+                            <option value="Moisturizers">Barrier Moisturizers & Creams</option>
+                            <option value="Cleansers">Gentle Cleansers & Washes</option>
+                            <option value="Oils">Radiance & Botanical Oils</option>
+                            <option value="Sunscreen">Sun Protection (SPF)</option>
+                            <option value="Toners & Mists">Toners & Facial Mists</option>
+                            <option value="Masks">Restorative Masks</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-prod-volume">Volume / Size *</label>
+                        <input type="text" id="edit-prod-volume" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-prod-price">Retail Price in Naira (₦) *</label>
+                        <input type="number" id="edit-prod-price" min="500" step="500" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-prod-original-price">Original / Strike-through Price (₦)</label>
+                        <input type="number" id="edit-prod-original-price" placeholder="Optional">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-prod-skin-type">Skin Types & Concerns</label>
+                    <input type="text" id="edit-prod-skin-type">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-prod-description">Formulation Description *</label>
+                    <textarea id="edit-prod-description" rows="4" required></textarea>
+                </div>
+
+                <!-- Edit Image Preview -->
+                <div class="form-group">
+                    <label>Product Image</label>
+                    <div class="image-upload-box">
+                        <div class="image-preview-container">
+                            <img id="edit-preview-img" src="./images/product-serum.jpg" alt="Preview">
+                        </div>
+                        <input type="file" id="edit-image-file" accept="image/*" style="margin-bottom:10px; background:#FFF; border:1px solid #CCC; padding:6px;">
+                        <input type="url" id="edit-image-url" placeholder="Or enter new image URL...">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="edit-prod-is-new">
+                        <label for="edit-prod-is-new">Show as "New Drop" on Home Page</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="edit-prod-in-stock">
+                        <label for="edit-prod-in-stock">In Stock & Available</label>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 14px; margin-top: 14px;">
+                    <button type="submit" class="btn-publish-product" style="flex-grow: 1;">
+                        💾 Save & Update Formulation
+                    </button>
+                    <button type="button" class="btn-nav-action" id="cancel-edit-btn" style="color: var(--color-dark); border-color: #CCC; padding: 0 24px;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         4. SECURITY & PASSWORD SETTINGS MODAL
+         =================================================================== -->
+    <div class="admin-modal-backdrop" id="security-settings-modal">
+        <div class="admin-modal-dialog" style="max-width: 480px;">
+            <button class="btn-close-modal" id="close-security-modal-btn">✕</button>
+            <div class="admin-card-header" style="margin-bottom: 20px;">
+                <h2>Security Settings</h2>
+                <p>Update your encrypted admin password and recovery PIN.</p>
+            </div>
+
+            <div class="auth-error-notice" id="settings-error-msg"></div>
+            <div class="auth-success-notice" id="settings-success-msg"></div>
+
+            <form id="security-settings-form">
+                <div class="form-group">
+                    <label for="settings-current-pass">Current Password *</label>
+                    <input type="password" id="settings-current-pass" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="settings-new-pass">New Password *</label>
+                    <input type="password" id="settings-new-pass" required minlength="4">
+                </div>
+
+                <div class="form-group">
+                    <label for="settings-confirm-pass">Confirm New Password *</label>
+                    <input type="password" id="settings-confirm-pass" required minlength="4">
+                </div>
+
+                <div class="form-group">
+                    <label for="settings-recovery-pin">Update Master Recovery PIN</label>
+                    <input type="text" id="settings-recovery-pin" placeholder="e.g. 8899">
+                </div>
+
+                <button type="submit" class="btn-publish-product">
+                    🔒 Update Password & Security
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

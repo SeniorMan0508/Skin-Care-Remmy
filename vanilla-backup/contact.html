@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with Remi Luxe Beauty concierge for personalized skincare consultations, order assistance, or WhatsApp orders.">
+    <title>Customer Concierge & Inquiries | Remi Luxe Beauty</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="announcement-bar">
+        <span>✨ <span class="sparkle">FREE EXPRESS NATIONWIDE SHIPPING</span> ON ORDERS OVER ₦60,000 ✨</span>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-link">
+                <div class="logo-wrapper">
+                    <img src="./images/logo-image.jpeg" alt="Remi Luxe Beauty Logo">
+                </div>
+                <div class="brand-info">
+                    <span class="brand-name">REMI LUXE</span>
+                    <span class="brand-tagline">BEAUTY</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links (Admin hidden from header) -->
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="shop.html" class="nav-link">Shop</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="action-btn" id="cart-trigger-btn" aria-label="View Shopping Bag">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span class="cart-count-badge" id="cart-badge-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <span class="contact-hero-subtitle">Bespoke Skincare Concierge</span>
+            <h1 class="contact-hero-title">We're Here To Illuminate Your Routine</h1>
+            <p class="contact-hero-desc">Have a question about which bio-active formulation suits your skin? Need help tracking an order? Our skincare concierge team is dedicated to your glow.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form & Info Grid -->
+    <section class="contact-main-section">
+        <div class="container contact-layout-grid">
+            
+            <!-- Column 1: Direct Contact Info & WhatsApp -->
+            <div class="contact-info-col">
+                <!-- Instant WhatsApp Card -->
+                <a href="https://wa.me/2348123456789?text=Hello%20Remi%20Luxe%20Beauty!%20I%20would%20like%20to%20inquire%20about%20your%20skincare%20products." target="_blank" class="whatsapp-direct-btn">
+                    <span>💬 Chat With Our Concierge on WhatsApp</span>
+                </a>
+
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h3>Lagos HQ & Atelier</h3>
+                        <p>Victoria Island, Lagos State, Nigeria.<br>Private skincare consultations by appointment.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-text">
+                        <h3>Direct Email</h3>
+                        <p>For custom consultations, press, and wholesale orders.</p>
+                        <a href="mailto:remigold049@gmail.com">remigold049@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <div class="info-text">
+                        <h3>Concierge Hotline</h3>
+                        <p>Monday – Saturday: 9:00 AM – 7:00 PM WAT</p>
+                        <a href="tel:+2348123456789">+234 (0) 812 345 6789</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Inquiry / Consultation Form -->
+            <div class="contact-form-card">
+                <h2>Send Us A Message</h2>
+                <p>Fill out the form below and our certified dermal advisors will respond within 24 hours.</p>
+
+                <div id="form-success-notice" style="display:none; background:#E8F7ED; border:1px solid #2ECC71; color:#1E8449; padding:16px; border-radius:10px; margin-bottom:20px; font-weight:600;">
+                    ✨ Thank you! Your message has been safely received. A skincare concierge advisor will contact you shortly.
+                </div>
+
+                <form id="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-name">Your Full Name *</label>
+                            <input type="text" id="contact-name" placeholder="e.g. Amara Okafor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address *</label>
+                            <input type="email" id="contact-email" placeholder="e.g. amara@example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-phone">WhatsApp / Phone Number</label>
+                            <input type="tel" id="contact-phone" placeholder="e.g. +234 803 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-concern">Primary Skin Concern</label>
+                            <select id="contact-concern">
+                                <option value="Hyperpigmentation & Glow">Hyperpigmentation & Dark Spots</option>
+                                <option value="Dryness & Barrier Repair">Dryness & Compromised Barrier</option>
+                                <option value="Acne & Texture">Acne & Rough Texture</option>
+                                <option value="Anti-Aging & Firming">Fine Lines & Elasticity</option>
+                                <option value="Order Tracking">Order & Shipping Inquiry</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-message">How can we assist you? *</label>
+                        <textarea id="contact-message" rows="5" placeholder="Tell us about your skin or question in detail..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-message">Send Message to Concierge</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-title">
+                <span class="contact-hero-subtitle">Common Inquiries</span>
+                <h2>Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq-accordion">
+                <div class="faq-item active">
+                    <button class="faq-question">
+                        <span>How long does delivery take within Nigeria?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Orders within Lagos State are delivered within 24 to 48 hours. Orders to Abuja, Port Harcourt, and other states across Nigeria typically arrive in 2 to 4 business days via verified express couriers.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I order directly on WhatsApp or pay via Bank Transfer?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes! You can complete your order on our Checkout page either via instant WhatsApp order forwarding or via direct Nigerian Bank Transfer.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Are Remi Luxe products safe for melanin-rich and sensitive skin?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Absolutely. Remi Luxe Beauty was created specifically to cater to diverse skin tones and sensitive barriers without triggering hyperpigmentation, irritation, or leave behind an unappealing white cast.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is the shelf life of each bio-active product?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Because we prioritize clean formulation and avoid synthetic parabens, our products are best used within 12 months after opening. Store in a cool, dry place away from direct sunlight.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>REMI LUXE BEAUTY</h3>
+                    <p>Ultra-luxurious, bio-compatible skincare formulated with clinically active botanicals to celebrate the innate radiance of every complexion.</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop All Formulations</a></li>
+                        <li><a href="about.html">Our Founder's Story</a></li>
+                        <li><a href="contact.html">Customer Care & FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Collections</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html?category=Serums">Radiance Serums</a></li>
+                        <li><a href="shop.html?category=Moisturizers">Barrier Moistures</a></li>
+                        <li><a href="shop.html?category=Cleansers">Purifying Cleansers</a></li>
+                        <li><a href="shop.html?category=Oils">24K Glow Oils</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Customer Care</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Complimentary Consultation</a></li>
+                        <li><a href="contact.html">Track Your Order</a></li>
+                        <li><a href="contact.html">Shipping & Returns</a></li>
+                        <li><a href="mailto:remigold049@gmail.com">remigold049@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Remi Luxe Beauty. All rights reserved. Cruelty-Free & Vegan.</p>
+                <p>Designed with pure elegance for healthy, luminous skin.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Slide-Over Shopping Cart Drawer -->
+    <div class="cart-drawer-backdrop" id="cart-drawer-backdrop"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>Your Shopping Bag</h3>
+            <button class="btn-close-drawer" id="close-drawer-btn" aria-label="Close Shopping Bag">✕</button>
+        </div>
+        <div class="cart-items-container" id="cart-items-list"></div>
+        <div class="cart-drawer-footer">
+            <div class="subtotal-row">
+                <span>Estimated Subtotal</span>
+                <span id="cart-subtotal-price">₦0</span>
+            </div>
+            <a href="checkout.html" class="btn-checkout" style="text-align:center; text-decoration:none;">Proceed to Checkout</a>
+        </div>
+    </aside>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
+    <script src="contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,758 @@
+/* ===================================================================
+   REMI LUXE BEAUTY - CHECKOUT STYLES (checkout.css)
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #FAF7F2;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F5EFE9;
+  --color-gold: #C89B3C;
+  --color-gold-hover: #DFB251;
+  --color-dark: #181512;
+  --color-text-main: #2A2420;
+  --color-text-muted: #72675F;
+  --border-light: rgba(24, 21, 18, 0.08);
+  --border-gold: rgba(200, 155, 60, 0.35);
+  
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  
+  --shadow-sm: 0 4px 12px rgba(24, 21, 18, 0.04);
+  --shadow-md: 0 8px 24px rgba(24, 21, 18, 0.08);
+  --shadow-lg: 0 16px 40px rgba(24, 21, 18, 0.12);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 0.2s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--color-text-main);
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+.container {
+  width: 90%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Minimal Checkout Header */
+.checkout-header {
+  background: #FFF;
+  border-bottom: 1px solid var(--border-light);
+  padding: 18px 0;
+}
+
+.checkout-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-wrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1.5px solid var(--color-gold);
+}
+
+.logo-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.brand-tagline {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--color-gold);
+  display: block;
+}
+
+.btn-back-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.btn-back-store:hover {
+  color: var(--color-dark);
+}
+
+/* Main Checkout Section */
+.checkout-main-section {
+  padding: 50px 0 90px;
+}
+
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.85fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+/* Step Cards */
+.checkout-card {
+  background: #FFF;
+  border-radius: var(--radius-md);
+  padding: 32px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 14px;
+}
+
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.step-header h2 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--color-dark);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  font-size: 0.92rem;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  background: #FFF;
+  border-color: var(--color-gold);
+  outline: none;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Payment Method Selection */
+.payment-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.payment-tab-btn {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-light);
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.payment-tab-btn.active {
+  border-color: var(--color-gold);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.payment-tab-btn span.tab-icon {
+  font-size: 1.6rem;
+}
+
+.payment-tab-btn strong {
+  font-size: 0.95rem;
+  color: var(--color-dark);
+}
+
+.payment-tab-btn small {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.payment-details-box {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-gold);
+  margin-bottom: 24px;
+}
+
+.bank-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.92rem;
+  margin-top: 12px;
+}
+
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(24, 21, 18, 0.1);
+  padding-bottom: 6px;
+}
+
+.btn-whatsapp-order {
+  width: 100%;
+  background: #25D366;
+  color: #FFF;
+  padding: 18px;
+  border-radius: var(--radius-full);
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.btn-whatsapp-order:hover {
+  background: #1EBE5D;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+}
+
+.btn-complete-transfer {
+  width: 100%;
+  background: var(--color-dark);
+  color: #FFF;
+  padding: 18px;
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.btn-complete-transfer:hover {
+  background: var(--color-gold);
+  box-shadow: 0 8px 24px rgba(200, 155, 60, 0.25);
+}
+
+/* Order Summary (Right Column) */
+.summary-card {
+  background: #FFF;
+  border-radius: var(--radius-md);
+  padding: 32px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 30px;
+}
+
+.summary-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-dark);
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 14px;
+}
+
+.summary-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 280px;
+  overflow-y: auto;
+  margin-bottom: 24px;
+  padding-right: 6px;
+}
+
+.summary-item {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.summary-item img {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--bg-surface);
+}
+
+.summary-item-info h4 {
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  margin-bottom: 2px;
+}
+
+.summary-item-info span {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.summary-pricing {
+  border-top: 1px solid var(--border-light);
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+}
+
+.pricing-total {
+  border-top: 1.5px solid var(--border-light);
+  padding-top: 14px;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+/* Order Confirmation Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+}
+
+.modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background: #FFF;
+  border-radius: var(--radius-lg);
+  max-width: 540px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid var(--border-gold);
+  box-shadow: var(--shadow-lg);
+}
+
+.success-badge-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #E8F5E9;
+  color: #2E7D32;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.modal-dialog h2 {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.modal-dialog p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Post-Payment Customer Review Form */
+.post-payment-comment-card {
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--border-gold);
+  margin: 20px 0;
+  text-align: left;
+}
+
+.comment-card-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  color: var(--color-dark);
+  margin-bottom: 4px;
+}
+
+.comment-card-header p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.star-rating-select {
+  display: flex;
+  gap: 6px;
+}
+
+.star-btn {
+  font-size: 1.6rem;
+  color: #CCC;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.star-btn.active,
+.star-btn:hover {
+  color: var(--color-gold);
+  transform: scale(1.15);
+}
+
+.btn-publish-comment {
+  width: 100%;
+  background: var(--color-gold);
+  color: #FFF;
+  padding: 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(200, 155, 60, 0.3);
+}
+
+.btn-publish-comment:hover {
+  background: var(--color-gold-hover);
+  transform: translateY(-2px);
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES FOR ALL SCREEN SIZES)
+   =================================================================== */
+
+/* Tablet & Medium Screens (max-width: 900px) */
+@media (max-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .summary-column {
+    order: 2; /* Put summary card below form on tablet/mobile */
+  }
+
+  .summary-card {
+    position: static;
+    top: auto;
+  }
+}
+
+/* Tablet Portrait & Large Phones (max-width: 768px) */
+@media (max-width: 768px) {
+  .checkout-main-section {
+    padding: 24px 0 50px;
+  }
+
+  .checkout-card {
+    padding: 22px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .step-header {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    font-size: 0.82rem;
+  }
+
+  .step-header h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Touch-friendly inputs: 16px font avoids iOS automatic zoom */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 14px;
+    font-size: 16px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Payment Option Tabs */
+  .payment-tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .payment-tab-btn {
+    width: 100%;
+    padding: 14px 16px;
+    text-align: left;
+    min-height: 52px;
+  }
+
+  /* Bank Details Box */
+  .payment-details-box {
+    padding: 18px 16px;
+  }
+
+  .bank-details-grid {
+    gap: 10px;
+  }
+
+  .bank-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .bank-row span {
+    font-size: 0.76rem;
+  }
+
+  .bank-row strong {
+    font-size: 0.96rem;
+  }
+
+  /* Action Buttons */
+  .btn-whatsapp-order,
+  .btn-complete-transfer {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.92rem;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  /* Summary Card */
+  .summary-card {
+    padding: 22px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  /* In-Page Verification View */
+  #checkout-verification-view {
+    padding: 10px 0 30px !important;
+  }
+
+  #checkout-verification-view > div {
+    padding: 26px 18px !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  #checkout-verification-view h1 {
+    font-size: 1.45rem !important;
+    line-height: 1.3 !important;
+  }
+
+  #checkout-verification-view .verification-badge-icon {
+    width: 60px !important;
+    height: 60px !important;
+    font-size: 2rem !important;
+  }
+
+  #inpage-order-ref {
+    font-size: 1.05rem !important;
+    word-break: break-all;
+  }
+
+  #btn-inpage-whatsapp-proof {
+    width: 100%;
+    padding: 13px 20px !important;
+    font-size: 0.9rem !important;
+    min-height: 48px;
+  }
+
+  .post-payment-comment-card {
+    padding: 18px 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .btn-publish-comment {
+    padding: 13px;
+    font-size: 0.9rem;
+    min-height: 46px;
+  }
+
+  #btn-inpage-return-home,
+  #btn-inpage-new-order {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px !important;
+    min-height: 46px;
+  }
+
+  /* Modal Dialog */
+  .modal-dialog {
+    max-width: 94vw;
+    max-height: 88vh;
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .modal-dialog h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Small Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .checkout-header {
+    padding: 10px 0;
+  }
+
+  .checkout-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logo-wrapper img {
+    height: 36px;
+    width: auto;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+  }
+
+  .btn-back-store {
+    font-size: 0.78rem;
+  }
+
+  .star-btn {
+    font-size: 1.5rem;
+    padding: 0 4px;
+  }
+
+  .pricing-total {
+    font-size: 1.15rem;
+  }
+}
+
+/* Extra Small Phones (max-width: 360px) */
+@media (max-width: 360px) {
+  .checkout-card {
+    padding: 18px 14px;
+  }
+
+  .btn-whatsapp-order span,
+  .btn-complete-transfer span {
+    font-size: 0.85rem;
+  }
+}
+

@@ -1,0 +1,219 @@
+.checkout-page {
+  padding: 60px 0 100px 0;
+  background-color: var(--bg-primary);
+}
+
+.checkout-page h1 {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+}
+
+.checkout-page-desc {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.checkout-box {
+  background: var(--bg-card);
+  padding: 34px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.checkout-box-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 14px;
+}
+
+.checkout-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.checkout-form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+/* Payment Method Selector */
+.payment-methods-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.payment-tab {
+  padding: 16px;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-text-main);
+  transition: all 0.25s ease;
+}
+
+.payment-tab.active {
+  border-color: var(--color-gold);
+  background: #FFFFFF;
+  box-shadow: 0 4px 15px rgba(200, 155, 60, 0.15);
+}
+
+.payment-tab-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #C4B9AF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-tab.active .payment-tab-indicator {
+  border-color: var(--color-gold);
+}
+
+.payment-tab.active .payment-tab-indicator::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-gold);
+}
+
+/* Bank Details Banner */
+.bank-transfer-card {
+  background: linear-gradient(135deg, #FFF9ED 0%, #FFF3D6 100%);
+  border: 1px solid #E4CD96;
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.bank-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(200, 155, 60, 0.3);
+  font-size: 0.92rem;
+}
+
+.bank-detail-row:last-child {
+  border-bottom: none;
+}
+
+.bank-detail-val {
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.bank-account-big {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: #B27B08;
+  letter-spacing: 2px;
+}
+
+/* Summary Items */
+.summary-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.summary-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.92rem;
+}
+
+.summary-cost-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.summary-cost-total {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  border-top: 2px solid var(--border-light);
+  padding-top: 14px;
+  margin-top: 10px;
+}
+
+/* Post-Payment Comment Card in Modal */
+.post-payment-comment-card {
+  background: #FFFBF5;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.comment-card-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-dark);
+  margin-bottom: 4px;
+}
+
+.comment-card-header p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.star-rating-select {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.star-btn {
+  font-size: 1.4rem;
+  color: #D8CEC4;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.star-btn.active {
+  color: #F5A623;
+}
+
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}

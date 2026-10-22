@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Product Upload Portal | Remi Luxe Beauty</title>
+    <link rel="stylesheet" href="admin.css?v=mobilefix2">
+</head>
+<body>
+
+    <!-- ===================================================================
+         1. PASSWORD ENCRYPTION & AUTHENTICATION GATEWAY
+         =================================================================== -->
+    <div class="admin-auth-overlay" id="admin-auth-overlay">
+        
+        <!-- View A: Login Card -->
+        <div class="admin-auth-card" id="auth-login-card">
+            <div class="auth-logo">
+                <img src="./images/logo-image.jpeg" alt="Remi Luxe Logo">
+            </div>
+            <h2>Remi Luxe Beauty</h2>
+            <p class="auth-subtitle">Encrypted Admin Formulation Portal</p>
+
+            <div class="auth-error-notice" id="login-error-msg">Incorrect password. Please try again.</div>
+
+            <form id="admin-login-form">
+                <div class="auth-form-group">
+                    <label for="admin-pass-input">Admin Master Password</label>
+                    <input type="password" id="admin-pass-input" placeholder="Enter password" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn-auth-submit">Unlock Admin Dashboard</button>
+
+                <div class="auth-links-row">
+                    <button type="button" class="auth-link" id="link-forgot-pass">Forgot Password?</button>
+                    <a href="index.html" style="color:var(--color-text-muted);">← Return to Store</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- View B: Forgot / Reset Password Card -->
+        <div class="admin-auth-card" id="auth-reset-card" style="display: none;">
+            <div class="auth-logo">
+                <img src="./images/logo-image.jpeg" alt="Remi Luxe Logo">
+            </div>
+            <h2>Reset Admin Password</h2>
+            <p class="auth-subtitle">Verify your identity to set a new password</p>
+
+            <div class="auth-error-notice" id="reset-error-msg"></div>
+            <div class="auth-success-notice" id="reset-success-msg"></div>
+
+            <form id="admin-reset-form">
+                <div class="auth-form-group">
+                    <label for="reset-admin-email">Registered Admin Business Email *</label>
+                    <input type="email" id="reset-admin-email" placeholder="e.g. remigold049@gmail.com" required>
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="reset-question-answer">Founder Name OR Master PIN (Default: 8899)</label>
+                    <input type="text" id="reset-question-answer" placeholder="e.g. Remi or 8899" value="Remi">
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="reset-new-pass">New Password *</label>
+                    <input type="password" id="reset-new-pass" placeholder="Enter new strong password" required minlength="4">
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="reset-confirm-pass">Confirm New Password *</label>
+                    <input type="password" id="reset-confirm-pass" placeholder="Confirm new password" required minlength="4">
+                </div>
+
+                <button type="submit" class="btn-auth-submit">Reset & Encrypt Password</button>
+
+                <div class="auth-links-row" style="justify-content: center; margin-top: 16px;">
+                    <button type="button" class="auth-link" id="link-back-to-login">← Back to Login</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- ===================================================================
+         2. MAIN ADMIN DASHBOARD
+         =================================================================== -->
+    <header class="admin-navbar">
+        <div class="container admin-nav-content">
+            <div class="admin-brand">
+                <img src="./images/logo-image.jpeg" alt="Logo">
+                <div>
+                    <h1>REMI LUXE BEAUTY</h1>
+                    <span>Admin Formulation & Inventory Portal</span>
+                </div>
+            </div>
+
+            <div class="admin-nav-actions">
+                <button class="btn-nav-action" id="btn-open-settings" title="Change Admin Password">
+                    <span>🔑 Change Password</span>
+                </button>
+                <a href="index.html" class="btn-nav-action">
+                    <span>← View Live Store</span>
+                </a>
+                <button class="btn-nav-action btn-nav-logout" id="btn-admin-logout" title="Log out of Admin Portal">
+                    <span>🚪 Log Out</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================================================
+         ADMIN NAVIGATION TABS (ORDERS TRACKING & INVENTORY MANAGEMENT)
+         =================================================================== -->
+    <div class="admin-tabs-bar">
+        <div class="container admin-tabs-container">
+            <button type="button" class="admin-tab-btn active" id="tab-btn-orders" data-target="panel-orders">
+                <span class="tab-icon">🛍️</span>
+                <span class="tab-title">Customer Orders & Tracking</span>
+                <span class="tab-counter" id="badge-orders-count">0</span>
+            </button>
+            <button type="button" class="admin-tab-btn" id="tab-btn-inventory" data-target="panel-inventory">
+                <span class="tab-icon">🧴</span>
+                <span class="tab-title">Formulations & Catalog</span>
+                <span class="tab-counter" id="badge-products-count">0</span>
+            </button>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- ===============================================================
+             TAB PANEL 1: CUSTOMER ORDERS & TRACKING
+             =============================================================== -->
+        <div class="admin-panel active" id="panel-orders">
+            <!-- Orders Metrics Strip -->
+            <section class="dashboard-stats-grid orders-stats-grid">
+                <div class="stat-card">
+                    <span class="label">Total Orders Placed</span>
+                    <h3 id="stat-orders-total">0</h3>
+                    <span class="sub-label">Customer purchases</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Total Store Revenue</span>
+                    <h3 id="stat-orders-revenue" style="color: var(--color-gold);">₦0</h3>
+                    <span class="sub-label">All-time sales volume</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Pending Verification</span>
+                    <h3 id="stat-orders-pending" style="color: #D97706;">0</h3>
+                    <span class="sub-label">Awaiting bank alert</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Dispatched / En Route</span>
+                    <h3 id="stat-orders-dispatched" style="color: #2563EB;">0</h3>
+                    <span class="sub-label">With courier riders</span>
+                </div>
+                <div class="stat-card">
+                    <span class="label">Delivered & Fulfilled</span>
+                    <h3 id="stat-orders-delivered" style="color: var(--color-success);">0</h3>
+                    <span class="sub-label">Successfully received</span>
+                </div>
+            </section>
+
+            <!-- Customer Orders Main Card -->
+            <div class="admin-card orders-main-card">
+                <div class="admin-card-header orders-card-header">
+                    <div>
+                        <h2>Customer Purchase History & Live Order Tracking</h2>
+                        <p>Complete record of every customer who ordered from Remi Luxe Beauty: their full name, phone number, delivery address, items bought, and payment status.</p>
+                    </div>
+                    <div class="orders-header-actions">
+                        <button type="button" class="btn-refresh" id="btn-refresh-orders" title="Reload latest orders">
+                            <span>🔄 Refresh Orders</span>
+                        </button>
+                        <button type="button" class="btn-export" id="btn-export-orders" title="Download all orders as CSV / Excel spreadsheet">
+                            <span>📥 Export to Excel (CSV)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search & Filters Toolbar -->
+                <div class="orders-toolbar">
+                    <div class="orders-search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="order-search-input" placeholder="Search by customer name, phone number, address, or order reference (e.g. RLB-3837)...">
+                        <button type="button" id="clear-order-search-btn" style="display:none;">✕</button>
+                    </div>
+                    <div class="orders-filter-box">
+                        <label for="order-status-filter">Filter Status:</label>
+                        <select id="order-status-filter">
+                            <option value="ALL">All Orders (Show Everything)</option>
+                            <option value="Pending Verification">🟡 Pending Verification</option>
+                            <option value="Payment Confirmed">🟢 Payment Confirmed</option>
+                            <option value="Dispatched / In Transit">🔵 Dispatched / In Transit</option>
+                            <option value="Delivered">🟣 Delivered</option>
+                            <option value="Cancelled">🔴 Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Mobile Swipe Hint -->
+                <div class="mobile-swipe-hint">
+                    <span>👉 Swipe table sideways to view full order tracking</span>
+                </div>
+
+                <!-- Orders Table Container -->
+                <div class="admin-table-container">
+                    <table class="admin-table orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order Ref & Date</th>
+                                <th>Customer Details</th>
+                                <th>Delivery Destination</th>
+                                <th>Items Ordered</th>
+                                <th>Total Amount</th>
+                                <th>Payment Method</th>
+                                <th>Tracking Status</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-table-body">
+                            <!-- Populated dynamically by admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="no-orders-msg" class="empty-orders-view" style="display:none;">
+                    <div style="font-size: 3rem; margin-bottom: 12px;">🛍️</div>
+                    <h3>No Customer Orders Found</h3>
+                    <p>When customers purchase formulations on your website, their full contact details, delivery address, and order items will instantly appear here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===============================================================
+             TAB PANEL 2: FORMULATIONS & INVENTORY CATALOG
+             =============================================================== -->
+        <div class="admin-panel" id="panel-inventory">
+        <!-- Dashboard Metrics Strip -->
+        <section class="dashboard-stats-grid">
+            <div class="stat-card">
+                <span class="label">Total Formulations</span>
+                <h3 id="stat-total-products">0</h3>
+            </div>
+            <div class="stat-card">
+                <span class="label">Active In Stock</span>
+                <h3 id="stat-in-stock" style="color: #2E7D32;">0</h3>
+            </div>
+            <div class="stat-card">
+                <span class="label">Sold Out / Reserved</span>
+                <h3 id="stat-out-stock" style="color: #C62828;">0</h3>
+            </div>
+            <div class="stat-card">
+                <span class="label">Average Retail Price</span>
+                <h3 id="stat-avg-price">₦0</h3>
+            </div>
+        </section>
+
+        <!-- Main Layout: Upload Form (Left) & Existing Products (Right) -->
+        <section class="admin-layout-grid">
+            
+            <!-- Left: Product Upload Form -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2>Upload New Formulation</h2>
+                    <p>Added products will instantly appear on the <strong>Shop catalog</strong> and the <strong>Home page New Arrivals</strong> section.</p>
+                </div>
+
+                <div id="upload-success-message" style="display:none; background:#E8F5E9; border:1px solid #2E7D32; color:#1B5E20; padding:16px; border-radius:10px; margin-bottom:20px; font-weight:600;">
+                    🎉 Formulation successfully uploaded! It is now live in the store catalog and featured under New Arrivals.
+                </div>
+
+                <form id="product-upload-form">
+                    <div class="form-group">
+                        <label for="prod-title">Formulation Title *</label>
+                        <input type="text" id="prod-title" placeholder="e.g. Luminous Vitamin C Nectar" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="category-label-row">
+                                <label for="prod-category" style="margin-bottom: 0;">Skincare Category *</label>
+                                <button type="button" class="btn-create-category-toggle" id="btn-toggle-new-cat">
+                                    + Create New Category
+                                </button>
+                            </div>
+                            <select id="prod-category" required>
+                                <option value="Face Care" selected>Face Care</option>
+                            </select>
+
+                            <!-- Inline Category Creator Box -->
+                            <div id="new-category-box" class="new-category-creator-box" style="display: none; margin-top: 8px; padding: 12px; background: #FAF7F2; border: 1.5px dashed var(--color-gold); border-radius: var(--radius-sm);">
+                                <label for="new-category-input" style="font-size: 0.76rem; font-weight: 700; color: var(--color-dark); margin-bottom: 4px; display: block;">Enter New Category Name:</label>
+                                <div style="display: flex; gap: 8px;">
+                                    <input type="text" id="new-category-input" placeholder="e.g. Body Care, Lip Care, Sun Protection..." style="flex: 1; padding: 7px 12px; font-size: 0.85rem; border: 1px solid #CCC; border-radius: var(--radius-sm); background: #FFF;">
+                                    <button type="button" id="btn-save-new-cat" style="background: var(--color-gold); color: #FFF; border: none; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; cursor: pointer;">
+                                        Add
+                                    </button>
+                                    <button type="button" id="btn-cancel-new-cat" style="background: #FFF; color: #555; border: 1px solid #CCC; padding: 7px 10px; border-radius: var(--radius-sm); font-size: 0.82rem; cursor: pointer;">
+                                        ✕
+                                    </button>
+                                </div>
+                                <div id="new-cat-feedback" style="font-size: 0.74rem; font-weight: 600; color: var(--color-success); margin-top: 4px; display: none;"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prod-volume">Volume / Size *</label>
+                            <input type="text" id="prod-volume" placeholder="e.g. 50ml / 1.7 fl. oz." value="50ml">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prod-price">Retail Price in Naira (₦) *</label>
+                            <input type="number" id="prod-price" placeholder="e.g. 45000" min="500" step="500" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prod-original-price">Original / Strike-through Price (₦)</label>
+                            <input type="number" id="prod-original-price" placeholder="e.g. 52000 (Optional)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prod-skin-type">Target Skin Types / Concerns</label>
+                        <input type="text" id="prod-skin-type" placeholder="e.g. Dry, Melanin-Rich, Dull / Uneven Complexion">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prod-description">Formulation Description & Key Actives *</label>
+                        <textarea id="prod-description" rows="4" placeholder="Detail the bio-active ingredients, benefits, and how to apply for optimal glow..." required></textarea>
+                    </div>
+
+                    <!-- Image Selection -->
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <div class="image-upload-box">
+                            <div class="image-preview-container">
+                                <img id="admin-preview-img" src="./images/product-serum.jpg" alt="Preview">
+                            </div>
+
+                            <p style="font-size:0.85rem; color:var(--color-text-muted); margin-bottom:10px;">Select a photo from your phone or computer:</p>
+                            
+                            <input type="file" id="admin-image-file" accept="image/*" style="margin-bottom:12px; background:#FFF; border:1px solid #CCC; padding:8px; width:100%; border-radius:var(--radius-sm);">
+
+                            <input type="url" id="admin-image-url" placeholder="Or paste external image URL (Optional)..." style="width:100%;">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="prod-is-new" checked>
+                            <label for="prod-is-new">Mark as "New Drop" (shows on Home page)</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="prod-in-stock" checked>
+                            <label for="prod-in-stock">Available in Stock</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-publish-product">
+                        ✨ Publish Formulation to Store
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: Product Inventory Table -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2>Live Catalog & Inventory</h2>
+                    <p>Edit prices, update descriptions, toggle stock availability, or delete discontinued items.</p>
+                </div>
+
+                <!-- Mobile Swipe Hint -->
+                <div class="mobile-swipe-hint">
+                    <span>👉 Swipe table sideways to view prices, status & actions</span>
+                </div>
+
+                <div class="products-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-products-table-body">
+                            <!-- Populated by admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+        </div><!-- /panel-inventory -->
+    </main>
+
+    <!-- ===================================================================
+         3. EDIT PRODUCT MODAL (PRICE INCREASE / DECREASE / DETAILS)
+         =================================================================== -->
+    <div class="admin-modal-backdrop" id="edit-product-modal">
+        <div class="admin-modal-dialog">
+            <button class="btn-close-modal" id="close-edit-modal-btn">✕</button>
+            <div class="admin-card-header" style="margin-bottom: 20px;">
+                <h2>Edit Formulation Details</h2>
+                <p>Modify pricing (increase or decrease), volume, description, or image for this product.</p>
+            </div>
+
+            <form id="edit-product-form">
+                <input type="hidden" id="edit-prod-id">
+
+                <div class="form-group">
+                    <label for="edit-prod-title">Formulation Title *</label>
+                    <input type="text" id="edit-prod-title" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="category-label-row">
+                            <label for="edit-prod-category" style="margin-bottom: 0;">Skincare Category *</label>
+                            <button type="button" class="btn-create-category-toggle" id="btn-toggle-edit-new-cat">
+                                + Create New Category
+                            </button>
+                        </div>
+                        <select id="edit-prod-category" required>
+                            <option value="Face Care" selected>Face Care</option>
+                        </select>
+
+                        <!-- Inline Category Creator Box for Edit Modal -->
+                        <div id="new-edit-category-box" class="new-category-creator-box" style="display: none; margin-top: 8px; padding: 12px; background: #FAF7F2; border: 1.5px dashed var(--color-gold); border-radius: var(--radius-sm);">
+                            <label for="new-edit-category-input" style="font-size: 0.76rem; font-weight: 700; color: var(--color-dark); margin-bottom: 4px; display: block;">Enter New Category Name:</label>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" id="new-edit-category-input" placeholder="e.g. Body Care..." style="flex: 1; padding: 7px 12px; font-size: 0.85rem; border: 1px solid #CCC; border-radius: var(--radius-sm); background: #FFF;">
+                                <button type="button" id="btn-save-edit-new-cat" style="background: var(--color-gold); color: #FFF; border: none; padding: 7px 14px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 700; cursor: pointer;">
+                                    Add
+                                </button>
+                                <button type="button" id="btn-cancel-edit-new-cat" style="background: #FFF; color: #555; border: 1px solid #CCC; padding: 7px 10px; border-radius: var(--radius-sm); font-size: 0.82rem; cursor: pointer;">
+                                    ✕
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-prod-volume">Volume / Size *</label>
+                        <input type="text" id="edit-prod-volume" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-prod-price">Retail Price in Naira (₦) *</label>
+                        <input type="number" id="edit-prod-price" min="500" step="500" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-prod-original-price">Original / Strike-through Price (₦)</label>
+                        <input type="number" id="edit-prod-original-price" placeholder="Optional">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-prod-skin-type">Skin Types & Concerns</label>
+                    <input type="text" id="edit-prod-skin-type">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-prod-description">Formulation Description *</label>
+                    <textarea id="edit-prod-description" rows="4" required></textarea>
+                </div>
+
+                <!-- Edit Image Preview -->
+                <div class="form-group">
+                    <label>Product Image</label>
+                    <div class="image-upload-box">
+                        <div class="image-preview-container">
+                            <img id="edit-preview-img" src="./images/product-serum.jpg" alt="Preview">
+                        </div>
+                        <input type="file" id="edit-image-file" accept="image/*" style="margin-bottom:10px; background:#FFF; border:1px solid #CCC; padding:6px;">
+                        <input type="url" id="edit-image-url" placeholder="Or enter new image URL...">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="edit-prod-is-new">
+                        <label for="edit-prod-is-new">Show as "New Drop" on Home Page</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="edit-prod-in-stock">
+                        <label for="edit-prod-in-stock">In Stock & Available</label>
+                    </div>
+                </div>
+
+                <div class="modal-actions-row" style="display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap;">
+                    <button type="submit" class="btn-publish-product" style="flex-grow: 1;">
+                        💾 Save & Update Formulation
+                    </button>
+                    <button type="button" class="btn-nav-action" id="cancel-edit-btn" style="color: var(--color-dark); border-color: #CCC; padding: 0 24px;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         4. SECURITY & PASSWORD SETTINGS MODAL
+         =================================================================== -->
+    <div class="admin-modal-backdrop" id="security-settings-modal">
+        <div class="admin-modal-dialog" style="max-width: 480px;">
+            <button class="btn-close-modal" id="close-security-modal-btn">✕</button>
+            <div class="admin-card-header" style="margin-bottom: 20px;">
+                <h2>Security Settings</h2>
+                <p>Update your encrypted admin password and recovery PIN.</p>
+            </div>
+
+            <div class="auth-error-notice" id="settings-error-msg"></div>
+            <div class="auth-success-notice" id="settings-success-msg"></div>
+
+            <form id="security-settings-form">
+                <div class="form-group">
+                    <label for="settings-current-pass">Current Password *</label>
+                    <input type="password" id="settings-current-pass" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="settings-new-pass">New Password *</label>
+                    <input type="password" id="settings-new-pass" required minlength="4">
+                </div>
+
+                <div class="form-group">
+                    <label for="settings-confirm-pass">Confirm New Password *</label>
+                    <input type="password" id="settings-confirm-pass" required minlength="4">
+                </div>
+
+                <div class="form-group">
+                    <label for="settings-recovery-pin">Update Master Recovery PIN</label>
+                    <input type="text" id="settings-recovery-pin" placeholder="e.g. 8899">
+                </div>
+
+                <button type="submit" class="btn-publish-product">
+                    🔒 Update Password & Security
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         5. CUSTOMER ORDER RECEIPT / INVOICE MODAL
+         =================================================================== -->
+    <div class="admin-modal-backdrop" id="order-receipt-modal">
+        <div class="admin-modal-dialog order-receipt-dialog">
+            <button class="btn-close-modal" id="close-receipt-modal-btn">✕</button>
+            <div id="order-receipt-modal-body">
+                <!-- Populated dynamically with full printable receipt matching Picture 1 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="products.js?v=facecare"></script>
+    <script src="admin.js?v=mobilefix2"></script>
+</body>
+</html>

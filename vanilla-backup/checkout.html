@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Remi Luxe Beauty</title>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+
+    <!-- Minimal Checkout Header -->
+    <header class="checkout-header">
+        <div class="container checkout-header-inner">
+            <a href="index.html" class="brand-link">
+                <div class="logo-wrapper">
+                    <img src="./images/logo-image.jpeg" alt="Remi Luxe Logo">
+                </div>
+                <div>
+                    <span class="brand-name">REMI LUXE</span>
+                    <span class="brand-tagline">BEAUTY</span>
+                </div>
+            </a>
+
+            <div>
+                <a href="shop.html" class="btn-back-store">
+                    <span>← Continue Shopping</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container checkout-main-section">
+        <div class="checkout-grid">
+            
+            <!-- Left Column: Checkout Steps & Forms -->
+            <div class="checkout-steps-column">
+                
+                <!-- Step 1: Customer Contact -->
+                <div class="checkout-card">
+                    <div class="step-header">
+                        <span class="step-num">1</span>
+                        <h2>Customer Contact</h2>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cust-name">Full Name *</label>
+                            <input type="text" id="cust-name" placeholder="e.g. Amara Okafor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-phone">WhatsApp / Phone Number *</label>
+                            <input type="tel" id="cust-phone" placeholder="e.g. +234 803 123 4567" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-email">Email Address (for order receipt)</label>
+                        <input type="email" id="cust-email" placeholder="e.g. amara@example.com">
+                    </div>
+                </div>
+
+                <!-- Step 2: Delivery Details -->
+                <div class="checkout-card">
+                    <div class="step-header">
+                        <span class="step-num">2</span>
+                        <h2>Delivery Address (Nigeria)</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-address">Street Address / House Number *</label>
+                        <input type="text" id="cust-address" placeholder="e.g. 15 Admiralty Way, Lekki Phase 1" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cust-state">State *</label>
+                            <select id="cust-state">
+                                <option value="Lagos">Lagos State (24-48 hrs)</option>
+                                <option value="Abuja">Abuja FCT (2-3 days)</option>
+                                <option value="Rivers">Rivers / Port Harcourt (2-3 days)</option>
+                                <option value="Oyo">Oyo / Ibadan (2-3 days)</option>
+                                <option value="Delta">Delta State (2-4 days)</option>
+                                <option value="Enugu">Enugu State (2-4 days)</option>
+                                <option value="Ogun">Ogun State (2-3 days)</option>
+                                <option value="Kano">Kano State (3-4 days)</option>
+                                <option value="Other">Other States Across Nigeria</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cust-city">City / Area</label>
+                            <input type="text" id="cust-city" placeholder="e.g. Lekki / Ikeja / Garki">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cust-notes">Delivery Instructions / Landmarks</label>
+                        <textarea id="cust-notes" rows="2" placeholder="e.g. Beside Zenith Bank, call before arriving..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment Method -->
+                <div class="checkout-card">
+                    <div class="step-header">
+                        <span class="step-num">3</span>
+                        <h2>Select Payment Method</h2>
+                    </div>
+
+                    <!-- Payment Option Tabs -->
+                    <div class="payment-tabs">
+                        <button type="button" class="payment-tab-btn active" id="tab-whatsapp">
+                            <span class="tab-icon">💬</span>
+                            <strong>Checkout on WhatsApp</strong>
+                            <small>Fastest • Direct Concierge Chat</small>
+                        </button>
+
+                        <button type="button" class="payment-tab-btn" id="tab-bank">
+                            <span class="tab-icon">🏦</span>
+                            <strong>Direct Bank Transfer</strong>
+                            <small>Instant Nigerian Bank Account</small>
+                        </button>
+                    </div>
+
+                    <!-- Mode A: WhatsApp Checkout Details -->
+                    <div id="section-whatsapp-checkout">
+                        <p style="color:var(--color-text-muted); font-size:0.92rem; margin-bottom:20px;">
+                            Clicking below will format your entire order, address, and total in Naira, and open a direct chat with our concierge on WhatsApp for quick payment and shipment confirmation.
+                        </p>
+                        <button type="button" class="btn-whatsapp-order" id="btn-submit-whatsapp">
+                            <span>💬 Send Order & Pay via WhatsApp</span>
+                        </button>
+                    </div>
+
+                    <!-- Mode B: Bank Transfer Details -->
+                    <div id="section-bank-checkout" style="display: none;">
+                        <div class="payment-details-box">
+                            <strong style="color:var(--color-dark); display:block; font-size:1rem;">Official Remi Luxe Beauty Bank Details:</strong>
+                            <div class="bank-details-grid">
+                                <div class="bank-row">
+                                    <span>Bank Name:</span>
+                                    <strong>UBA Bank</strong>
+                                </div>
+                                <div class="bank-row">
+                                    <span>Account Name:</span>
+                                    <strong>Emokpae Remilekun Shukurat</strong>
+                                </div>
+                                <div class="bank-row">
+                                    <span>Account Number:</span>
+                                    <strong style="letter-spacing:0.08em; color:var(--color-gold); font-size:1.05rem;">2155821394</strong>
+                                </div>
+                                <div class="bank-row">
+                                    <span>Payment Reference:</span>
+                                    <strong id="order-reference-display" style="color:var(--color-dark);">RLB-000000</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p style="color:var(--color-text-muted); font-size:0.85rem; margin-bottom:20px;">
+                            Please transfer the exact order total using your generated Order Reference in the narration. Once completed, click the button below to confirm.
+                        </p>
+
+                        <button type="button" class="btn-complete-transfer" id="btn-confirm-transfer">
+                            <span>✓ I Have Completed The Bank Transfer</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Right Column: Order Summary Card -->
+            <div class="summary-column">
+                <div class="summary-card">
+                    <h3>Order Summary</h3>
+                    
+                    <div class="summary-items-list" id="checkout-items-list">
+                        <!-- Populated by checkout.js -->
+                    </div>
+
+                    <div class="summary-pricing">
+                        <div class="pricing-row">
+                            <span>Bag Subtotal</span>
+                            <span id="checkout-subtotal">₦0</span>
+                        </div>
+                        <div class="pricing-row">
+                            <span>Express Delivery (Nigeria)</span>
+                            <span id="checkout-delivery">₦0</span>
+                        </div>
+                        <div class="pricing-total">
+                            <span>Total Due</span>
+                            <span id="checkout-total" style="color:var(--color-gold);">₦0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Order Confirmation Modal with Review/Comment Submission -->
+    <div class="modal-backdrop" id="checkout-success-modal">
+        <div class="modal-dialog" style="max-width: 620px; max-height: 90vh; overflow-y: auto; text-align: left;">
+            <div style="text-align: center;">
+                <div class="success-badge-icon">✓</div>
+                <h2>Order Placed Successfully!</h2>
+                <p style="margin-bottom: 20px;">
+                    Thank you for choosing Remi Luxe Beauty! Order Reference: <strong id="modal-order-ref" style="color:var(--color-dark);"></strong>. Our fulfillment concierge is preparing your shipment.
+                </p>
+            </div>
+
+            <!-- Post-Payment Customer Review / Comment Box -->
+            <div class="post-payment-comment-card">
+                <div class="comment-card-header">
+                    <h3>✨ Leave a Customer Review & Comment</h3>
+                    <p>Share your glow expectation or experience. Your comment will appear on our Home Page!</p>
+                </div>
+
+                <div id="comment-success-alert" style="display:none; background:#E8F5E9; border:1px solid #2E7D32; color:#1B5E20; padding:12px; border-radius:8px; margin-bottom:14px; font-size:0.88rem; font-weight:600;">
+                    🎉 Thank you! Your review has been published and is now live on the Home Page.
+                </div>
+
+                <form id="post-payment-review-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="review-customer-name">Your Name *</label>
+                            <input type="text" id="review-customer-name" placeholder="e.g. Amara Okafor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="review-skin-type">Skin Type / Concern</label>
+                            <input type="text" id="review-skin-type" placeholder="e.g. Melanin-Rich • Sensitive" value="Verified Customer">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div class="star-rating-select" id="star-rating-container">
+                            <button type="button" class="star-btn active" data-rating="1">★</button>
+                            <button type="button" class="star-btn active" data-rating="2">★</button>
+                            <button type="button" class="star-btn active" data-rating="3">★</button>
+                            <button type="button" class="star-btn active" data-rating="4">★</button>
+                            <button type="button" class="star-btn active" data-rating="5">★</button>
+                            <input type="hidden" id="selected-star-rating" value="5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-comment-text">Your Comment / Review *</label>
+                        <textarea id="review-comment-text" rows="3" placeholder="Tell us how you feel about your purchase or your skincare goals..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-publish-comment" id="btn-submit-review">
+                        Post Comment to Home Page ✨
+                    </button>
+                </form>
+            </div>
+
+            <div style="text-align: center; margin-top: 18px;">
+                <button type="button" class="btn-complete-transfer" id="close-success-btn">
+                    <span>Return To Home Page</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="products.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>
