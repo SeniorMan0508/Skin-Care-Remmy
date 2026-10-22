@@ -74,9 +74,10 @@ export default function CheckoutPage() {
       items: cart,
       subtotal: cartSubtotal,
       deliveryFee,
-      total: cartTotal,
+      total: cartSubtotal,
+      deliveryFee: "Paid on Delivery (By Receiver)",
       paymentMethod: paymentMethod === 'bank' 
-        ? "Direct Bank Transfer (UBA Bank: 2155821394)" 
+        ? "Direct Bank Transfer (Opay: 9013255068)" 
         : "WhatsApp Order Concierge"
     };
 
@@ -269,7 +270,7 @@ export default function CheckoutPage() {
                   </div>
                   <div className="bank-detail-row">
                     <span>Bank Name:</span>
-                    <span className="bank-detail-val">United Bank for Africa (UBA Bank)</span>
+                    <span className="bank-detail-val">Opay</span>
                   </div>
                   <div className="bank-detail-row">
                     <span>Account Name:</span>
@@ -277,10 +278,10 @@ export default function CheckoutPage() {
                   </div>
                   <div className="bank-detail-row">
                     <span>Account Number:</span>
-                    <span className="bank-account-big">2155821394</span>
+                    <span className="bank-account-big">9013255068</span>
                   </div>
                   <div style={{ marginTop: '14px', fontSize: '0.84rem', color: '#724E09', lineHeight: '1.5' }}>
-                    💡 Please transfer <strong>{formatNaira(cartTotal)}</strong> to the account above. Your order will be dispatched immediately once transfer is initiated.
+                    💡 Please transfer <strong>{formatNaira(cartSubtotal)}</strong> to the Opay account above. Shipping fee is paid directly to the rider upon delivery.
                   </div>
                 </div>
               )}
@@ -318,19 +319,13 @@ export default function CheckoutPage() {
               </div>
 
               <div className="summary-cost-row">
-                <span>Delivery Fee</span>
-                <span>{isFreeShipping ? 'FREE' : formatNaira(deliveryFee)}</span>
+                <span>Delivery / Courier Fee</span>
+                <span style={{ color: '#B45309', fontWeight: '700', fontSize: '0.85rem' }}>Paid on Delivery (By Receiver)</span>
               </div>
 
-              {isFreeShipping && (
-                <div style={{ fontSize: '0.8rem', color: '#2E7D32', fontWeight: '600', marginBottom: '8px' }}>
-                  🎉 Free Delivery Unlocked (Order over {formatNaira(FREE_SHIPPING_THRESHOLD)})
-                </div>
-              )}
-
               <div className="summary-cost-row summary-cost-total">
-                <span>Total Amount Due</span>
-                <span style={{ color: 'var(--color-gold)' }}>{formatNaira(cartTotal)}</span>
+                <span>Total Amount Due Now</span>
+                <span style={{ color: 'var(--color-gold)' }}>{formatNaira(cartSubtotal)}</span>
               </div>
 
               <button 

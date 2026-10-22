@@ -68,11 +68,11 @@ function generateOrderHtml(orderData, hasLogo) {
     </tr>
   `).join('');
 
-  const deliveryText = orderData.deliveryFee === 0
-    ? '<span style="color: #15803d; font-weight: 700;">FREE (Unlocked over ₦60,000)</span>'
-    : formatNaira(orderData.deliveryFee);
+  const deliveryText = typeof orderData.deliveryFee === 'string'
+    ? orderData.deliveryFee
+    : (orderData.deliveryFee ? formatNaira(orderData.deliveryFee) : 'Paid by Receiver on Delivery (Pay to Rider)');
 
-  const paymentText = orderData.paymentMethod || 'Direct Bank Transfer (UBA Bank)';
+  const paymentText = orderData.paymentMethod || 'Direct Bank Transfer (Opay: 9013255068)';
 
   return `
     <div style="font-family: Arial, sans-serif; max-width: 620px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
@@ -161,7 +161,7 @@ function generateOrderHtml(orderData, hasLogo) {
             Payment Method: ${paymentText}
           </div>
           <div style="font-size: 12px; color: #15803d; line-height: 1.5;">
-            <strong>Action Required:</strong> Check your instant UBA Bank alert to verify credit of <strong>${formatNaira(orderData.total)}</strong> to <strong>Emokpae Remilekun Shukurat (2155821394)</strong> before dispatching package.
+            <strong>Action Required:</strong> Check your instant Opay alert to verify credit of <strong>${formatNaira(orderData.total)}</strong> to <strong>Emokpae Remilekun Shukurat (9013255068)</strong> before dispatching package.
           </div>
         </div>
 
@@ -322,8 +322,8 @@ function generateCustomerConfirmationHtml(orderData, status, hasLogo) {
               <td style="text-align: right;">${formatNaira(orderData.subtotal)}</td>
             </tr>
             <tr>
-              <td>Delivery:</td>
-              <td style="text-align: right;">${deliveryText}</td>
+              <td>Delivery / Shipping:</td>
+              <td style="text-align: right; color: #b45309; font-weight: 600;">Paid on Delivery (By Receiver)</td>
             </tr>
             <tr style="font-size: 16px; font-weight: 800; color: #18422e; border-top: 1.5px dashed #cbd5e1; padding-top: 8px;">
               <td style="padding-top: 8px;">Total Verified & Paid:</td>

@@ -211,15 +211,12 @@ function renderCheckoutSummary() {
   `).join("");
 
   const subtotal = getCartTotal();
-  const isFreeDelivery = subtotal >= FREE_SHIPPING_THRESHOLD;
-  const deliveryFee = isFreeDelivery ? 0 : STANDARD_DELIVERY_FEE;
-  const finalTotal = subtotal + deliveryFee;
+  // Shipping fee is paid by receiver upon delivery to the rider
+  const finalTotal = subtotal;
 
   if (subtotalEl) subtotalEl.textContent = formatNaira(subtotal);
   if (deliveryEl) {
-    deliveryEl.innerHTML = isFreeDelivery 
-      ? `<span style="color:#2E7D32; font-weight:700;">FREE (Nationwide)</span>` 
-      : formatNaira(deliveryFee);
+    deliveryEl.innerHTML = `<span style="color:#B45309; font-weight:700; font-size:0.85rem;">Paid on Delivery (By Receiver)</span>`;
   }
   if (totalEl) totalEl.textContent = formatNaira(finalTotal);
 
@@ -275,9 +272,8 @@ function initCheckoutActions() {
     }
 
     const subtotal = getCartTotal();
-    const isFree = subtotal >= FREE_SHIPPING_THRESHOLD;
-    const delivery = isFree ? "FREE" : formatNaira(STANDARD_DELIVERY_FEE);
-    const total = isFree ? subtotal : subtotal + STANDARD_DELIVERY_FEE;
+    const delivery = "Paid on Delivery (To Rider)";
+    const total = subtotal; // Total due now for formulations
 
     const itemsSummary = cart.map(item => `• ${item.title} (x${item.quantity}) - ${formatNaira(item.price * item.quantity)}`).join("\n");
 
@@ -295,10 +291,10 @@ Order Reference: *${generatedOrderRef}*
 ${itemsSummary}
 
 *Subtotal:* ${formatNaira(subtotal)}
-*Delivery:* ${delivery}
-*TOTAL AMOUNT:* *${formatNaira(total)}*
+*Delivery Fee:* Paid by Receiver on Delivery (To Rider)
+*TOTAL AMOUNT TO PAY NOW:* *${formatNaira(total)}*
 
-Please confirm availability and share payment/delivery schedule!`;
+Please confirm availability and share payment confirmation!`;
 
     // Open WhatsApp in new tab
     const waUrl = `https://wa.me/2349013255068?text=${encodeURIComponent(message)}`;
@@ -314,7 +310,7 @@ Please confirm availability and share payment/delivery schedule!`;
       notes,
       items: cart,
       subtotal,
-      deliveryFee: isFree ? 0 : STANDARD_DELIVERY_FEE,
+      deliveryFee: "Paid on Delivery (By Receiver)",
       total,
       paymentMethod: "WhatsApp Order Checkout"
     };
@@ -350,9 +346,7 @@ Please confirm availability and share payment/delivery schedule!`;
     }
 
     const subtotal = getCartTotal();
-    const isFree = subtotal >= FREE_SHIPPING_THRESHOLD;
-    const deliveryFee = isFree ? 0 : STANDARD_DELIVERY_FEE;
-    const total = subtotal + deliveryFee;
+    const total = subtotal; // Total due now to bank account
 
     const orderPayload = {
       orderRef: generatedOrderRef,
@@ -364,9 +358,9 @@ Please confirm availability and share payment/delivery schedule!`;
       notes,
       items: cart,
       subtotal,
-      deliveryFee,
+      deliveryFee: "Paid on Delivery (By Receiver)",
       total,
-      paymentMethod: "Direct Bank Transfer (UBA Bank: 2155821394)"
+      paymentMethod: "Direct Bank Transfer (Opay: 9013255068)"
     };
 
     // Show button loading state

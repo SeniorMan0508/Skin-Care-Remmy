@@ -184,8 +184,8 @@ function renderCartItems() {
       </div>
     `;
     if (subtotalEl) subtotalEl.textContent = formatNaira(0);
-    if (shippingText) shippingText.textContent = `Add ${formatNaira(FREE_SHIPPING_THRESHOLD)} for FREE express shipping`;
-    if (shippingFill) shippingFill.style.width = "0%";
+    if (shippingText) shippingText.textContent = "📦 Shipping fees are paid directly to the courier rider upon delivery.";
+    if (shippingFill) shippingFill.style.width = "100%";
     return;
   }
 
@@ -209,16 +209,8 @@ function renderCartItems() {
   const total = getCartTotal();
   if (subtotalEl) subtotalEl.textContent = formatNaira(total);
 
-  // Shipping progress calculation (FREE_SHIPPING_THRESHOLD ₦60,000)
-  if (total >= FREE_SHIPPING_THRESHOLD) {
-    if (shippingText) shippingText.textContent = "🎉 You've unlocked FREE Luxury Express Shipping!";
-    if (shippingFill) shippingFill.style.width = "100%";
-  } else {
-    const diff = FREE_SHIPPING_THRESHOLD - total;
-    const pct = Math.min((total / FREE_SHIPPING_THRESHOLD) * 100, 100);
-    if (shippingText) shippingText.textContent = `Add ${formatNaira(diff)} more for FREE express delivery`;
-    if (shippingFill) shippingFill.style.width = `${pct}%`;
-  }
+  if (shippingText) shippingText.textContent = "📦 Shipping fee is paid directly to the courier rider upon delivery.";
+  if (shippingFill) shippingFill.style.width = "100%";
 }
 
 function handleAddToCart(productId, event) {

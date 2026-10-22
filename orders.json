@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "orderRef": "RLB-144502",
+    "name": "Badmus Daniel",
+    "phone": "+2347049045720",
+    "email": "badmusd436@gmail.com",
+    "address": "No 1 BlOCKX1X  GRA EXTENTION OJERE",
+    "state": "Ogun",
+    "notes": "None",
+    "items": [
+      {
+        "id": "remi-003",
+        "title": "Gentle Purifying Cleanser",
+        "price": 28000,
+        "image": "./images/product-cleanser.jpg",
+        "volume": "150ml / 5.07 fl. oz.",
+        "quantity": 1
+      }
+    ],
+    "subtotal": 28000,
+    "deliveryFee": "Paid on Delivery (By Receiver)",
+    "total": 28000,
+    "paymentMethod": "Direct Bank Transfer (Opay: 9013255068)",
+    "businessEmail": "remigold049@gmail.com",
+    "brandName": "Remi Luxe Beauty",
+    "status": "Pending Verification",
+    "receivedAt": "2026-10-22T18:07:45.171Z"
+  }
+]

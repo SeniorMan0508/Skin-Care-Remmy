@@ -43,19 +43,8 @@ export default function CartDrawer() {
 
         {/* Free Shipping Progress Indicator */}
         <div className="shipping-bar-container">
-          <div className="shipping-bar-text">
-            <Sparkles size={16} color="var(--color-gold)" />
-            {isFreeShipping ? (
-              <span>🎉 Congratulations! You unlocked <strong>FREE Nigeria Delivery</strong>!</span>
-            ) : (
-              <span>Add <strong>{formatNaira(remainingForFree)}</strong> more for <strong>FREE Delivery</strong></span>
-            )}
-          </div>
-          <div className="shipping-progress-bg">
-            <div 
-              className="shipping-progress-fill" 
-              style={{ width: `${progressPercent}%` }}
-            />
+          <div className="shipping-bar-text" style={{ fontSize: '0.82rem', color: '#854D0E' }}>
+            <span>📦 Nationwide Delivery • Shipping fee is paid directly to the courier rider upon delivery.</span>
           </div>
         </div>
 

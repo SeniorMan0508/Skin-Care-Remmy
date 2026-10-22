@@ -1057,7 +1057,7 @@ function renderOrderTableRow(order) {
         <span class="order-total-amount">${formatNaira(order.total || 0)}</span>
         <span class="order-total-breakdown">
           Subtotal: ${formatNaira(order.subtotal || 0)}<br>
-          Delivery: ${order.deliveryFee ? formatNaira(order.deliveryFee) : '<span style="color:#15803d; font-weight:600;">Free Delivery</span>'}
+          Delivery: <span style="color:#b45309; font-weight:600;">${typeof order.deliveryFee === 'string' ? order.deliveryFee : (order.deliveryFee ? formatNaira(order.deliveryFee) : 'Paid on Delivery')}</span>
         </span>
       </td>
 
@@ -1362,10 +1362,10 @@ function handleOpenOrderReceipt(orderRef) {
         </div>
         <div class="receipt-total-row">
           <span>Delivery / Courier Fee:</span>
-          <span>${order.deliveryFee ? formatNaira(order.deliveryFee) : 'Free Delivery'}</span>
+          <span style="color:#b45309; font-weight:600;">${typeof order.deliveryFee === 'string' ? order.deliveryFee : (order.deliveryFee ? formatNaira(order.deliveryFee) : 'Paid by Receiver on Delivery')}</span>
         </div>
         <div class="receipt-total-row grand-total">
-          <span>Total Order Value:</span>
+          <span>Total Order Value (Formulations):</span>
           <span style="color:#15803D;">${formatNaira(order.total || 0)}</span>
         </div>
       </div>
@@ -1376,9 +1376,9 @@ function handleOpenOrderReceipt(orderRef) {
           🏦 Bank Transfer Reference Details
         </div>
         <div style="font-size:0.8rem; color:#14532D; line-height:1.5;">
-          Bank Name: <strong>United Bank for Africa (UBA)</strong><br>
-          Account Number: <strong>2155821394</strong><br>
-          Account Name: <strong>REMI LUXE BEAUTY</strong>
+          Bank Name: <strong>Opay</strong><br>
+          Account Number: <strong>9013255068</strong><br>
+          Account Name: <strong>Emokpae Remilekun Shukurat</strong>
         </div>
       </div>
     </div>
